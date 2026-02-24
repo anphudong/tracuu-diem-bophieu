@@ -7,154 +7,164 @@
 
 <style>
 
-/* ===== BODY ===== */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
-    overflow-x: hidden;
-    background: radial-gradient(circle at center, #8b0000 0%, #5c0000 70%);
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    color:white;
+    overflow:hidden;
+    background: radial-gradient(circle at center,#9b0000 0%,#5c0000 70%);
 }
 
-/* ===== NỀN GRID CÔNG NGHỆ ===== */
-body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(255,215,0,0.08) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,215,0,0.08) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: moveGrid 10s linear infinite;
-    z-index: 0;
+/* ===== GRID 3D ===== */
+.grid{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:60%;
+    background-image:
+        linear-gradient(rgba(255,215,0,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,215,0,0.15) 1px, transparent 1px);
+    background-size:40px 40px;
+    transform: perspective(500px) rotateX(60deg);
+    animation: moveGrid 6s linear infinite;
+    z-index:0;
 }
 
-@keyframes moveGrid {
-    from { background-position: 0 0; }
-    to { background-position: 0 40px; }
+@keyframes moveGrid{
+    from{background-position:0 0;}
+    to{background-position:0 40px;}
 }
 
-/* ===== TRỐNG ĐỒNG XOAY ===== */
-.drum {
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    border: 8px solid rgba(255,215,0,0.15);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: spin 60s linear infinite;
-    z-index: 0;
+/* ===== TRỐNG ĐỒNG SVG ===== */
+.drum{
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:400px;
+    height:400px;
+    transform:translate(-50%,-50%);
+    opacity:0.15;
+    animation:spin 40s linear infinite;
+    z-index:0;
 }
 
-.drum::before {
-    content: "";
-    position: absolute;
-    inset: 30px;
-    border-radius: 50%;
-    border: 4px dashed rgba(255,215,0,0.2);
+@keyframes spin{
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
-@keyframes spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+/* ===== PARTICLES ===== */
+.particle{
+    position:fixed;
+    width:3px;
+    height:3px;
+    background:gold;
+    border-radius:50%;
+    opacity:0.7;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
 }
 
 /* ===== CONTAINER ===== */
-.container {
-    position: relative;
-    z-index: 2;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+.container{
+    position:relative;
+    z-index:2;
+    max-width:600px;
+    margin:50px auto;
+    padding:30px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-/* ===== HEADER ===== */
-h1 {
-    text-align: center;
-    margin-bottom: 10px;
+/* HEADER LIGHT SWEEP */
+h1{
+    text-align:center;
+    position:relative;
+    overflow:hidden;
 }
 
-.sub {
-    text-align: center;
-    margin-bottom: 20px;
-    opacity: 0.9;
+h1::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+    animation:sweep 4s infinite;
 }
 
-/* ===== INPUT ===== */
-select {
-    width: 100%;
-    padding: 15px;
-    border-radius: 12px;
-    border: none;
-    font-size: 18px;
-    margin-bottom: 20px;
+@keyframes sweep{
+    to{left:150%;}
 }
 
-/* ===== CARD ===== */
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    transition: 0.3s;
+.sub{text-align:center;margin-bottom:20px;}
+
+select{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:none;
+    margin-bottom:20px;
 }
 
-.card:hover {
-    transform: translateY(-3px);
-    background: rgba(255,255,255,0.15);
+.card{
+    background:rgba(255,255,255,0.12);
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+    transition:0.3s;
 }
 
-.label {
-    font-size: 13px;
-    opacity: 0.8;
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 20px rgba(255,215,0,0.5);
 }
 
-.value {
-    font-size: 18px;
-    margin-top: 5px;
+.label{font-size:13px;opacity:0.8;}
+.value{font-size:18px;margin-top:5px;}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    background:linear-gradient(45deg,#FFD700,#FFA500);
+    box-shadow:0 0 25px rgba(255,215,0,0.8);
+    cursor:pointer;
+    transition:0.3s;
 }
 
-/* ===== BUTTON ===== */
-button {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    background: linear-gradient(45deg, #FFD700, #FFA500);
-    box-shadow: 0 0 20px rgba(255,215,0,0.5);
-    transition: 0.3s;
+button:hover{
+    transform:scale(1.05);
 }
 
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(255,215,0,0.8);
-}
-
-.footer {
-    text-align: center;
-    margin-top: 20px;
-    opacity: 0.7;
-}
+.footer{text-align:center;margin-top:20px;opacity:0.7;}
 
 </style>
 </head>
 
 <body>
 
-<div class="drum"></div>
+<div class="grid"></div>
+
+<!-- TRỐNG ĐỒNG -->
+<svg class="drum" viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="95" stroke="gold" stroke-width="3" fill="none"/>
+<circle cx="100" cy="100" r="70" stroke="gold" stroke-width="2" fill="none"/>
+<circle cx="100" cy="100" r="40" stroke="gold" stroke-width="2" fill="none"/>
+<line x1="100" y1="5" x2="100" y2="195" stroke="gold"/>
+<line x1="5" y1="100" x2="195" y2="100" stroke="gold"/>
+</svg>
 
 <div class="container">
-
 <h1>UỶ BAN BẦU CỬ PHƯỜNG AN PHÚ ĐÔNG</h1>
 <div class="sub">TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU</div>
 
@@ -183,56 +193,62 @@ button:hover {
 </div>
 
 <button onclick="moBanDo()">XEM VỊ TRÍ BẢN ĐỒ</button>
-
 <div class="footer">© Uỷ ban bầu cử Phường An Phú Đông</div>
-
 </div>
 
 <script>
 
-let duLieu = {
-    6: {
-        khuvuc: "Khu vực bỏ phiếu số 04",
-        donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Số 35/12 đường Bé Văn Cấm (Chung cư M-One)",
-        map: "https://maps.google.com"
-    }
+/* PARTICLES */
+for(let i=0;i<30;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"%";
+    p.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(p);
+}
+
+let duLieu={
+6:{
+khuvuc:"Khu vực bỏ phiếu số 04",
+donvi:"Đơn vị bầu cử số 01",
+diadiem:"Số 35/12 đường Bé Văn Cấm (Chung cư M-One)",
+map:"https://maps.google.com"
+}
 };
 
-let select = document.getElementById("khuphoSelect");
-for (let i = 1; i <= 66; i++) {
-    let option = document.createElement("option");
-    option.value = i;
-    option.text = "Khu phố " + (i < 10 ? "0" + i : i);
-    select.appendChild(option);
+let select=document.getElementById("khuphoSelect");
+for(let i=1;i<=66;i++){
+let op=document.createElement("option");
+op.value=i;
+op.text="Khu phố "+(i<10?"0"+i:i);
+select.appendChild(op);
 }
 
-let currentMap = "";
+let currentMap="";
 
-function traCuu() {
-    let so = document.getElementById("khuphoSelect").value;
-
-    if (duLieu[so]) {
-        document.getElementById("khupho").innerText = "Khu phố " + so;
-        document.getElementById("khuvuc").innerText = duLieu[so].khuvuc;
-        document.getElementById("donvi").innerText = duLieu[so].donvi;
-        document.getElementById("diadiem").innerText = duLieu[so].diadiem;
-        currentMap = duLieu[so].map;
-    } else {
-        document.getElementById("khupho").innerText = "Chưa cập nhật";
-        document.getElementById("khuvuc").innerText = "---";
-        document.getElementById("donvi").innerText = "---";
-        document.getElementById("diadiem").innerText = "---";
-        currentMap = "";
-    }
+function traCuu(){
+let so=document.getElementById("khuphoSelect").value;
+if(duLieu[so]){
+document.getElementById("khupho").innerText="Khu phố "+so;
+document.getElementById("khuvuc").innerText=duLieu[so].khuvuc;
+document.getElementById("donvi").innerText=duLieu[so].donvi;
+document.getElementById("diadiem").innerText=duLieu[so].diadiem;
+currentMap=duLieu[so].map;
+}else{
+document.getElementById("khupho").innerText="Chưa cập nhật";
+document.getElementById("khuvuc").innerText="---";
+document.getElementById("donvi").innerText="---";
+document.getElementById("diadiem").innerText="---";
+currentMap="";
+}
 }
 
-function moBanDo() {
-    if (currentMap !== "") {
-        window.open(currentMap, "_blank");
-    } else {
-        alert("Chưa có dữ liệu bản đồ!");
-    }
+function moBanDo(){
+if(currentMap!=""){
+window.open(currentMap,"_blank");
+}else{
+alert("Chưa có dữ liệu bản đồ!");
+}
 }
 
 </script>
