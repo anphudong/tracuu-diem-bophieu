@@ -40,12 +40,13 @@ body{
     position:fixed;
     top:50%;
     left:50%;
-    width:400px;
-    height:400px;
+    width:750px;
+    height:750px;
     transform:translate(-50%,-50%);
-    opacity:0.15;
-    animation:spin 40s linear infinite;
+    opacity:0.28;
+    animation:spin 80s linear infinite;
     z-index:0;
+    filter:drop-shadow(0 0 25px rgba(255,215,0,0.6));
 }
 
 @keyframes spin{
@@ -82,29 +83,22 @@ body{
     box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-/* HEADER LIGHT SWEEP */
 h1{
     text-align:center;
-    position:relative;
-    overflow:hidden;
+    font-family:'Montserrat',sans-serif;
+    font-size:28px;
+    letter-spacing:1.5px;
+    text-shadow:0 0 15px rgba(255,215,0,0.6);
+    margin-bottom:10px;
 }
 
-h1::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-100%;
-    width:50%;
-    height:100%;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
-    animation:sweep 4s infinite;
+.sub{
+    text-align:center;
+    margin-bottom:20px;
+    font-weight:600;
+    letter-spacing:1px;
+    color:#FFD700;
 }
-
-@keyframes sweep{
-    to{left:150%;}
-}
-
-.sub{text-align:center;margin-bottom:20px;}
 
 select{
     width:100%;
@@ -156,12 +150,36 @@ button:hover{
 <div class="grid"></div>
 
 <!-- TRỐNG ĐỒNG -->
-<svg class="drum" viewBox="0 0 200 200">
-<circle cx="100" cy="100" r="95" stroke="gold" stroke-width="3" fill="none"/>
-<circle cx="100" cy="100" r="70" stroke="gold" stroke-width="2" fill="none"/>
-<circle cx="100" cy="100" r="40" stroke="gold" stroke-width="2" fill="none"/>
-<line x1="100" y1="5" x2="100" y2="195" stroke="gold"/>
-<line x1="5" y1="100" x2="195" y2="100" stroke="gold"/>
+<svg class="drum" viewBox="0 0 500 500">
+
+<defs>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFD700"/>
+        <stop offset="60%" stop-color="#C9A227"/>
+        <stop offset="100%" stop-color="#7a5c00"/>
+    </radialGradient>
+</defs>
+
+<circle cx="250" cy="250" r="240" stroke="url(#goldGlow)" stroke-width="6" fill="none"/>
+<circle cx="250" cy="250" r="200" stroke="url(#goldGlow)" stroke-width="4" fill="none"/>
+<circle cx="250" cy="250" r="160" stroke="url(#goldGlow)" stroke-width="3" fill="none"/>
+
+<polygon points="250,90 270,210 390,210 290,270 330,390 250,320 170,390 210,270 110,210 230,210"
+fill="url(#goldGlow)" opacity="0.9"/>
+
+<g stroke="url(#goldGlow)" stroke-width="2">
+<line x1="250" y1="20" x2="250" y2="480"/>
+<line x1="20" y1="250" x2="480" y2="250"/>
+<line x1="80" y1="80" x2="420" y2="420"/>
+<line x1="420" y1="80" x2="80" y2="420"/>
+</g>
+
+<g stroke="url(#goldGlow)" stroke-width="1.5" fill="none">
+<circle cx="250" cy="250" r="120"/>
+<circle cx="250" cy="250" r="90"/>
+<circle cx="250" cy="250" r="60"/>
+</g>
+
 </svg>
 
 <div class="container">
