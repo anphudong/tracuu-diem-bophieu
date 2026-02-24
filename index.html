@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Tra cứu điểm bỏ phiếu</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #8B0000, #B22222);
+    color: white;
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    width: 80px;
+}
+
+.header {
+    padding: 30px 20px 10px 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.sub-header {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+select {
+    width: 70%;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.value {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+button {
+    background: #FFC107;
+    color: black;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #ffdb4d;
+}
+</style>
+</head>
+
+<body>
+
+<img src="logo.png" class="logo">
+
+<div class="header">
+BAN CHỈ ĐẠO BẦU CỬ PHƯỜNG AN PHÚ ĐÔNG
+</div>
+
+<div class="sub-header">
+TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU THEO KHU PHỐ
+</div>
+
+<div class="container">
+
+    <p>Chọn Khu phố:</p>
+
+    <select id="khuphoSelect" onchange="traCuu()">
+        <option value="">-- Chọn khu phố 1 → 66 --</option>
+    </select>
+
+    <div class="card">
+        <div class="label">KHU PHỐ</div>
+        <div class="value" id="khupho">---</div>
+    </div>
+
+    <div class="card">
+        <div class="label">KHU VỰC BỎ PHIẾU</div>
+        <div class="value" id="khuvuc">---</div>
+    </div>
+
+    <div class="card">
+        <div class="label">ĐỊA ĐIỂM BỎ PHIẾU</div>
+        <div class="value" id="diadiem">---</div>
+    </div>
+
+    <button onclick="moBanDo()">XEM VỊ TRÍ BẢN ĐỒ</button>
+
+</div>
+
+<script>
+let duLieu = {
+    1: {
+        khuvuc: "Khu vực bỏ phiếu số 01",
+        diadiem: "Trường Mầm non Hoàn Mỹ 2 (234a, đường Vườn Lài, Khu phố 3)",
+        map: "https://maps.app.goo.gl/cN3icTxtBNcqeAJx9"
+    },
+    3: {
+        khuvuc: "Khu vực bỏ phiếu số 01",
+        diadiem: "Trường Mầm non Hoàn Mỹ 2 (234a, đường Vườn Lài, Khu phố 3)",
+        map: "https://maps.app.goo.gl/cN3icTxtBNcqeAJx9"
+    },
+    2: {
+        khuvuc: "Khu vực bỏ phiếu số 02",
+        diadiem: "Trường Quốc tế Bamboo (301/14, đường Vườn Lài, Khu phố 2)",
+        map: "https://maps.app.goo.gl/qe9ZPjxiAbpANbbMA"
+    },
+    4: {
+        khuvuc: "Khu vực bỏ phiếu số 03",
+        diadiem: "Văn phòng Khu phố 4",
+        map: "https://maps.app.goo.gl/n8fciPuo7jm59F9s6"
+    },
+    13: {
+        khuvuc: "Khu vực bỏ phiếu số 03",
+        diadiem: "Văn phòng Khu phố 4",
+        map: "https://maps.app.goo.gl/n8fciPuo7jm59F9s6"
+    },
+    5: {
+        khuvuc: "Khu vực bỏ phiếu số 04",
+        diadiem: "Trường Mầm non Sơn ca 8 (140/57, đường Vườn Lài, Khu phố 5)",
+        map: "https://maps.app.goo.gl/eU99rp7RtY9jRdqF8"
+    },
+    6: {
+        khuvuc: "Khu vực bỏ phiếu số 04",
+        diadiem: "Trường Mầm non Sơn ca 8 (140/57, đường Vườn Lài, Khu phố 5)",
+        map: "https://maps.app.goo.gl/eU99rp7RtY9jRdqF8"
+    }
+};
+
+let select = document.getElementById("khuphoSelect");
+for (let i = 1; i <= 66; i++) {
+    let option = document.createElement("option");
+    option.value = i;
+    option.text = "Khu phố " + (i < 10 ? "0" + i : i);
+    select.appendChild(option);
+}
+
+let currentMap = "";
+
+function traCuu() {
+    let so = document.getElementById("khuphoSelect").value;
+
+    if (duLieu[so]) {
+        document.getElementById("khupho").innerText = "Khu phố " + so;
+        document.getElementById("khuvuc").innerText = duLieu[so].khuvuc;
+        document.getElementById("diadiem").innerText = duLieu[so].diadiem;
+        currentMap = duLieu[so].map;
+    } else {
+        document.getElementById("khupho").innerText = "Chưa cập nhật";
+        document.getElementById("khuvuc").innerText = "Chưa có dữ liệu";
+        document.getElementById("diadiem").innerText = "Vui lòng liên hệ UBND phường";
+        currentMap = "";
+    }
+}
+
+function moBanDo() {
+    if (currentMap !== "") {
+        window.open(currentMap, "_blank");
+    } else {
+        alert("Chưa có dữ liệu bản đồ!");
+    }
+}
+</script>
+
+</body>
+</html>
