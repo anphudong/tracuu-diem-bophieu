@@ -7,106 +7,142 @@
 
 <style>
 
-/* ===== NỀN HIỆU ỨNG CHUYỂN ĐỘNG ===== */
+/* ===== BODY ===== */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     color: white;
-    text-align: center;
-    background: linear-gradient(-45deg, #7b0000, #b30000, #8b0000, #5c0000);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
+    overflow-x: hidden;
+    background: radial-gradient(circle at center, #8b0000 0%, #5c0000 70%);
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* ===== NỀN GRID CÔNG NGHỆ ===== */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255,215,0,0.08) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,215,0,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: moveGrid 10s linear infinite;
+    z-index: 0;
 }
 
-/* ===== HEADER ===== */
-.header {
-    padding: 30px 20px 10px 20px;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1px;
+@keyframes moveGrid {
+    from { background-position: 0 0; }
+    to { background-position: 0 40px; }
 }
 
-.sub-header {
-    font-size: 15px;
-    margin-bottom: 25px;
-    opacity: 0.9;
+/* ===== TRỐNG ĐỒNG XOAY ===== */
+.drum {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 8px solid rgba(255,215,0,0.15);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 60s linear infinite;
+    z-index: 0;
+}
+
+.drum::before {
+    content: "";
+    position: absolute;
+    inset: 30px;
+    border-radius: 50%;
+    border: 4px dashed rgba(255,215,0,0.2);
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* ===== CONTAINER ===== */
 .container {
-    width: 90%;
-    max-width: 500px;
-    margin: auto;
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
 }
 
-/* ===== SELECT ===== */
+/* ===== HEADER ===== */
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sub {
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+/* ===== INPUT ===== */
 select {
     width: 100%;
-    padding: 14px;
-    font-size: 16px;
+    padding: 15px;
     border-radius: 12px;
     border: none;
-    margin-bottom: 25px;
-    text-align: center;
-    outline: none;
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
-/* ===== CARD GLASS EFFECT ===== */
+/* ===== CARD ===== */
 .card {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(8px);
-    padding: 18px;
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
     border-radius: 15px;
-    margin: 12px 0;
-    text-align: left;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+    transition: 0.3s;
 }
 
 .card:hover {
     transform: translateY(-3px);
+    background: rgba(255,255,255,0.15);
 }
 
 .label {
     font-size: 13px;
     opacity: 0.8;
-    font-weight: bold;
 }
 
 .value {
     font-size: 18px;
-    margin-top: 6px;
+    margin-top: 5px;
 }
 
 /* ===== BUTTON ===== */
 button {
-    background: linear-gradient(45deg, #FFD700, #FFC107);
-    color: black;
-    padding: 12px 30px;
+    display: block;
+    width: 100%;
+    padding: 14px;
     border: none;
     border-radius: 30px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 20px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    box-shadow: 0 0 20px rgba(255,215,0,0.5);
+    transition: 0.3s;
 }
 
 button:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    box-shadow: 0 0 30px rgba(255,215,0,0.8);
 }
 
-/* ===== FOOTER ===== */
 .footer {
-    margin-top: 30px;
-    font-size: 13px;
+    text-align: center;
+    margin-top: 20px;
     opacity: 0.7;
 }
 
@@ -115,15 +151,12 @@ button:hover {
 
 <body>
 
-<div class="header">
-BAN CHỈ ĐẠO BẦU CỬ PHƯỜNG AN PHÚ ĐÔNG
-</div>
-
-<div class="sub-header">
-TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU THEO KHU PHỐ
-</div>
+<div class="drum"></div>
 
 <div class="container">
+
+<h1>BAN CHỈ ĐẠO BẦU CỬ PHƯỜNG AN PHÚ ĐÔNG</h1>
+<div class="sub">TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU</div>
 
 <select id="khuphoSelect" onchange="traCuu()">
 <option value="">-- Chọn khu phố 1 → 66 --</option>
@@ -151,26 +184,18 @@ TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU THEO KHU PHỐ
 
 <button onclick="moBanDo()">XEM VỊ TRÍ BẢN ĐỒ</button>
 
-<div class="footer">
-© Uỷ ban bầu cử Phường An Phú Đông
-</div>
+<div class="footer">© UBND Phường An Phú Đông</div>
 
 </div>
 
 <script>
 
 let duLieu = {
-    1: {
-        khuvuc: "Khu vực bỏ phiếu số 01",
+    6: {
+        khuvuc: "Khu vực bỏ phiếu số 04",
         donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Trường Mầm non Hoàn Mỹ 2",
-        map: "https://maps.app.goo.gl/cN3icTxtBNcqeAJx9"
-    },
-    2: {
-        khuvuc: "Khu vực bỏ phiếu số 02",
-        donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Trường Quốc tế Bamboo",
-        map: "https://maps.app.goo.gl/qe9ZPjxiAbpANbbMA"
+        diadiem: "Số 35/12 đường Bé Văn Cấm (Chung cư M-One)",
+        map: "https://maps.google.com"
     }
 };
 
@@ -195,9 +220,9 @@ function traCuu() {
         currentMap = duLieu[so].map;
     } else {
         document.getElementById("khupho").innerText = "Chưa cập nhật";
-        document.getElementById("khuvuc").innerText = "Chưa có dữ liệu";
-        document.getElementById("donvi").innerText = "Chưa có dữ liệu";
-        document.getElementById("diadiem").innerText = "Vui lòng liên hệ UBND phường";
+        document.getElementById("khuvuc").innerText = "---";
+        document.getElementById("donvi").innerText = "---";
+        document.getElementById("diadiem").innerText = "---";
         currentMap = "";
     }
 }
