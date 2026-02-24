@@ -2,89 +2,118 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tra cứu điểm bỏ phiếu</title>
 
 <style>
+
+/* ===== NỀN HIỆU ỨNG CHUYỂN ĐỘNG ===== */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #8B0000, #B22222);
+    font-family: 'Segoe UI', Arial, sans-serif;
     color: white;
     text-align: center;
+    background: linear-gradient(-45deg, #7b0000, #b30000, #8b0000, #5c0000);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
 }
 
-.logo {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    width: 80px;
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* ===== HEADER ===== */
 .header {
     padding: 30px 20px 10px 20px;
     font-size: 22px;
     font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .sub-header {
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 15px;
+    margin-bottom: 25px;
+    opacity: 0.9;
 }
 
+/* ===== CONTAINER ===== */
 .container {
-    width: 85%;
+    width: 90%;
+    max-width: 500px;
     margin: auto;
 }
 
+/* ===== SELECT ===== */
 select {
-    width: 70%;
-    padding: 15px;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 10px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    outline: none;
 }
 
+/* ===== CARD GLASS EFFECT ===== */
 .card {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 12px;
-    margin: 10px 0;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    padding: 18px;
+    border-radius: 15px;
+    margin: 12px 0;
     text-align: left;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
 }
 
 .label {
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     opacity: 0.8;
+    font-weight: bold;
 }
 
 .value {
     font-size: 18px;
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
+/* ===== BUTTON ===== */
 button {
-    background: #FFC107;
+    background: linear-gradient(45deg, #FFD700, #FFC107);
     color: black;
-    padding: 12px 25px;
+    padding: 12px 30px;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #ffdb4d;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
+
+/* ===== FOOTER ===== */
+.footer {
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
 </style>
 </head>
 
 <body>
-
-<img src="logo.png" class="logo">
 
 <div class="header">
 BAN CHỈ ĐẠO BẦU CỬ PHƯỜNG AN PHÚ ĐÔNG
@@ -96,73 +125,52 @@ TRA CỨU ĐỊA ĐIỂM BỎ PHIẾU THEO KHU PHỐ
 
 <div class="container">
 
-    <p>Chọn Khu phố:</p>
+<select id="khuphoSelect" onchange="traCuu()">
+<option value="">-- Chọn khu phố 1 → 66 --</option>
+</select>
 
-    <select id="khuphoSelect" onchange="traCuu()">
-        <option value="">-- Chọn khu phố 1 → 66 --</option>
-    </select>
+<div class="card">
+<div class="label">KHU PHỐ</div>
+<div class="value" id="khupho">---</div>
+</div>
 
-    <div class="card">
-        <div class="label">KHU PHỐ</div>
-        <div class="value" id="khupho">---</div>
-    </div>
+<div class="card">
+<div class="label">KHU VỰC BỎ PHIẾU</div>
+<div class="value" id="khuvuc">---</div>
+</div>
 
-    <div class="card">
-        <div class="label">KHU VỰC BỎ PHIẾU</div>
-        <div class="value" id="khuvuc">---</div>
-    </div>
+<div class="card">
+<div class="label">ĐƠN VỊ BẦU CỬ</div>
+<div class="value" id="donvi">---</div>
+</div>
 
-    <div class="card">
-        <div class="label">ĐƠN VỊ BẦU CỬ</div>
-        <div class="value" id="donvi">---</div>
-    </div>
+<div class="card">
+<div class="label">ĐỊA ĐIỂM BỎ PHIẾU</div>
+<div class="value" id="diadiem">---</div>
+</div>
 
-    <div class="card">
-        <div class="label">ĐỊA ĐIỂM BỎ PHIẾU</div>
-        <div class="value" id="diadiem">---</div>
-    </div>
+<button onclick="moBanDo()">XEM VỊ TRÍ BẢN ĐỒ</button>
 
-    <button onclick="moBanDo()">XEM VỊ TRÍ BẢN ĐỒ</button>
+<div class="footer">
+© Uỷ ban bầu cử Phường An Phú Đông
+</div>
 
 </div>
 
 <script>
+
 let duLieu = {
     1: {
         khuvuc: "Khu vực bỏ phiếu số 01",
         donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Trường Mầm non Hoàn Mỹ 2 (234a, đường Vườn Lài, Khu phố 3)",
+        diadiem: "Trường Mầm non Hoàn Mỹ 2",
         map: "https://maps.app.goo.gl/cN3icTxtBNcqeAJx9"
     },
     2: {
         khuvuc: "Khu vực bỏ phiếu số 02",
         donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Trường Quốc tế Bamboo (301/14, đường Vườn Lài, Khu phố 2)",
+        diadiem: "Trường Quốc tế Bamboo",
         map: "https://maps.app.goo.gl/qe9ZPjxiAbpANbbMA"
-    },
-    3: {
-        khuvuc: "Khu vực bỏ phiếu số 01",
-        donvi: "Đơn vị bầu cử số 01",
-        diadiem: "Trường Mầm non Hoàn Mỹ 2 (234a, đường Vườn Lài, Khu phố 3)",
-        map: "https://maps.app.goo.gl/cN3icTxtBNcqeAJx9"
-    },
-    4: {
-        khuvuc: "Khu vực bỏ phiếu số 03",
-        donvi: "Đơn vị bầu cử số 02",
-        diadiem: "Văn phòng Khu phố 4",
-        map: "https://maps.app.goo.gl/n8fciPuo7jm59F9s6"
-    },
-    5: {
-        khuvuc: "Khu vực bỏ phiếu số 04",
-        donvi: "Đơn vị bầu cử số 02",
-        diadiem: "Trường Mầm non Sơn Ca 8 (140/57, đường Vườn Lài, Khu phố 5)",
-        map: "https://maps.app.goo.gl/eU99rp7RtY9jRdqF8"
-    },
-    6: {
-        khuvuc: "Khu vực bỏ phiếu số 04",
-        donvi: "Đơn vị bầu cử số 02",
-        diadiem: "Trường Mầm non Sơn Ca 8 (140/57, đường Vườn Lài, Khu phố 5)",
-        map: "https://maps.app.goo.gl/eU99rp7RtY9jRdqF8"
     }
 };
 
@@ -201,6 +209,7 @@ function moBanDo() {
         alert("Chưa có dữ liệu bản đồ!");
     }
 }
+
 </script>
 
 </body>
